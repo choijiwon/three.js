@@ -456,5 +456,29 @@
 		return intersects;
 
 	};
+	
+	THREE.Raycaster.prototype.intersectObjectsHideSkip = function ( objects, recursive ) {
+
+	var intersects = [];
+
+	for ( var i = 0, l = objects.length; i < l; i ++ ) {
+
+		if ( objects[ i ].visible === false ) { continue; }
+		
+		intersectObject( objects[ i ], this, intersects );
+
+		if ( recursive === true ) {
+
+			intersectDescendants( objects[ i ], this, intersects );
+
+		}
+
+	}
+
+	intersects.sort( descSort );
+
+	return intersects;
+
+	};
 
 }( THREE ) );
